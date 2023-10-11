@@ -2,62 +2,62 @@
 --Created Date: Monday October 2nd 2023 11:36:49 am CEST
 --Author: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 -------
---Last Modified: Wednesday October 11th 2023 12:06:38 am CEST
+--Last Modified: Wednesday October 11th 2023 12:07:12 am CEST
 --Modified By: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 --]]
 --[[
-Core
+Shared
 
-    The Core module provides a unified approach to managing Core-related events, states, and their interactions in Roblox using Fusion. It provides functionalities like fetching BindableEvents, managing states, subscribing to state changes, and more.
+    The Shared module provides a unified approach to managing Shared-related events, states, and their interactions in Roblox using Fusion. It provides functionalities like fetching BindableEvents, managing states, subscribing to state changes, and more.
 
 SYNOPSIS
 
-    local CoreInstance = Core.new()
-    local mainPageState = CoreInstance:GetState("Page")
+    local SharedInstance = Shared.new()
+    local mainPageState = SharedInstance:GetState("Page")
     print(mainPageState:get())
 
 DESCRIPTION
 
-    The Core module is built to provide a clear structure for managing Core-related events and states in Roblox. It leverages Fusion for state management and provides hooks for interfacing with BindableEvents and state changes. The module ensures that any subscribed events are cleaned up properly and provides a consistent API for interfacing with both states and events.
+    The Shared module is built to provide a clear structure for managing Shared-related events and states in Roblox. It leverages Fusion for state management and provides hooks for interfacing with BindableEvents and state changes. The module ensures that any subscribed events are cleaned up properly and provides a consistent API for interfacing with both states and events.
 
 API
 
-    function Core.new(): Core
-    Creates a new Core instance with default states and events.
+    function Shared.new(): Shared
+    Creates a new Shared instance with default states and events.
 
-    function Core:Init()
-    Initializes the Core instance, generally by setting up necessary state listeners.
+    function Shared:Init()
+    Initializes the Shared instance, generally by setting up necessary state listeners.
 
-    function Core:ListenToStates()
-    Sets up observers for all the states in the Core to listen to state changes.
+    function Shared:ListenToStates()
+    Sets up observers for all the states in the Shared to listen to state changes.
 
-    function Core:GetEvent(SignalName: string): BindableEvent
-    Fetches a BindableEvent by its name from the Core.
+    function Shared:GetEvent(SignalName: string): BindableEvent
+    Fetches a BindableEvent by its name from the Shared.
 
-    function Core:GetState(StateName: string): Fusion.Value<any>
-    Fetches the state by its name from the Core.
+    function Shared:GetState(StateName: string): Fusion.Value<any>
+    Fetches the state by its name from the Shared.
 
-    function Core:SetState(StateName: string, Value)
-    Sets the value of a specific state in the Core.
+    function Shared:SetState(StateName: string, Value)
+    Sets the value of a specific state in the Shared.
 
-    function Core:SubscribeToState(StateName: string, callback: function)
+    function Shared:SubscribeToState(StateName: string, callback: function)
     Hooks an event listener to a specific state to listen for its changes.
 
-    function Core:Subscribe(SignalName: string, callback: function)
+    function Shared:Subscribe(SignalName: string, callback: function)
     Hooks an event listener to a specific BindableEvent to execute a callback when the event is triggered.
 
-    function Core:Fire(SignalName: string, ...any)
+    function Shared:Fire(SignalName: string, ...any)
     Fires a specific BindableEvent with the provided arguments.
 
-    function Core:DoCleaning()
-    Cleans up all tasks and listeners associated with the Core to ensure no memory leaks.
+    function Shared:DoCleaning()
+    Cleans up all tasks and listeners associated with the Shared to ensure no memory leaks.
 
-    function Core:Destroy()
-    Completely destroys the Core instance, disconnecting all events and clearing the object.
+    function Shared:Destroy()
+    Completely destroys the Shared instance, disconnecting all events and clearing the object.
 
 ]]
 
--- Implementation of Core.
+-- Implementation of Shared.
 
 --// Services
 local Plugin = script.Parent
@@ -73,14 +73,14 @@ local Maid = require(Plugin.Packages.Maid)
 --// Types
 
 --// Class
-local Core = {}
-Core.__index = Core
+local Shared = {}
+Shared.__index = Shared
 
 ---
--- @description Constructs a new Core object.
--- @return Core - The newly created Core instance.
+-- @description Constructs a new Shared object.
+-- @return Shared - The newly created Shared instance.
 --
-function Core.new()
+function Shared.new()
 	local info = {
 		--// External
 
@@ -94,22 +94,22 @@ function Core.new()
 		_maid = Maid.new(),
 	}
 
-	setmetatable(info, Core):Init()
+	setmetatable(info, Shared):Init()
 
 	return info
 end
 
 ---
--- @description Initializes the Core.
+-- @description Initializes the Shared.
 --
-function Core:Init()
+function Shared:Init()
 	self:ListenToStates()
 end
 
 ---
--- @description Adds Observers for the States in the Core.
+-- @description Adds Observers for the States in the Shared.
 --
-function Core:ListenToStates()
+function Shared:ListenToStates()
 	-- Adding Observers
 	for StateName, State: Fusion.Value<any> in pairs(self.States) do
 		--// LocalStateSubscriptions
@@ -125,11 +125,11 @@ function Core:ListenToStates()
 end
 
 ---
--- @description Fetches a desired BindableEvent from the Core.
+-- @description Fetches a desired BindableEvent from the Shared.
 -- @param SignalName string - The name of the BindableEvent to fetch.
 -- @return BindableEvent - The fetched BindableEvent.
 --
-function Core:GetEvent(SignalName: string): BindableEvent
+function Shared:GetEvent(SignalName: string): BindableEvent
 	local DesiredSignal: BindableEvent = self[SignalName]
 	assert(DesiredSignal, "Bindable Event `" .. SignalName .. "` does not exist")
 
@@ -137,12 +137,12 @@ function Core:GetEvent(SignalName: string): BindableEvent
 end
 
 ---
--- @description Fetches a desired State from the Core.
+-- @description Fetches a desired State from the Shared.
 -- @param StateName string - The name of the State to fetch.
 -- @return Fusion.Value<any> - The fetched State.
 --
 
-function Core:GetState(StateName: string): Fusion.Value<any>
+function Shared:GetState(StateName: string): Fusion.Value<any>
 	local DesiredState: Fusion.Value<any> = self.States[StateName]
 	assert(DesiredState, "State `" .. StateName .. "` does not exist")
 
@@ -150,11 +150,11 @@ function Core:GetState(StateName: string): Fusion.Value<any>
 end
 
 ---
--- @description Sets a state value in the Core.
+-- @description Sets a state value in the Shared.
 -- @param StateName string - The name of the State to set.
 -- @param Value any - The value to set the state to.
 --
-function Core:SetState(StateName: string, Value): Fusion.Value<any>
+function Shared:SetState(StateName: string, Value): Fusion.Value<any>
 	local DesiredState: Fusion.Value<any> = self:GetState(StateName)
 	DesiredState:set(Value)
 end
@@ -164,7 +164,7 @@ end
 -- @param StateName string - The name of the State to hook.
 -- @param callback function - The function to execute when the event is triggered.
 --
-function Core:SubscribeToState(State: string, callback: () -> nil)
+function Shared:SubscribeToState(State: string, callback: () -> nil)
 	local DesiredState: Fusion.Value<any> = self:GetState(State)
 	local StateSubscriptions = self.StateSubscriptions[State] or {}
 
@@ -176,7 +176,7 @@ end
 -- @param SignalName string - The name of the BindableEvent to hook.
 -- @param callback function - The function to execute when the event is triggered.
 --
-function Core:Subscribe(SignalName: string, callback: () -> nil)
+function Shared:Subscribe(SignalName: string, callback: () -> nil)
 	local DesiredSignal: BindableEvent = self:GetEvent(SignalName)
 	self._maid:GiveTask(DesiredSignal.Event:Connect(callback))
 end
@@ -186,16 +186,16 @@ end
 -- @param SignalName string - The name of the BindableEvent to fire.
 -- @param ... any - The arguments to pass when firing the event.
 --
-function Core:Fire(SignalName: string, ...)
+function Shared:Fire(SignalName: string, ...)
 	local DesiredSignal: BindableEvent = self:GetEvent(SignalName)
 	DesiredSignal:Fire(...)
 end
 
 ---
--- @description Cleans up all tasks and listeners associated with the Core.
+-- @description Cleans up all tasks and listeners associated with the Shared.
 --
-function Core:DoCleaning()
+function Shared:DoCleaning()
 	self._maid:Cleanup()
 end
 
-return Core.new()
+return Shared.new()

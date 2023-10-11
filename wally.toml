@@ -5,4 +5,8 @@ registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 
 [dependencies]
+# Utils
+TableUtil = "sleitnick/table-util@1.2.0"
+Input = "sleitnick/input@2.1.1"
+Maid = "flamenco687/maid@3.2.2"
 Fusion = "elttob/fusion@0.2.0"

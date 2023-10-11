@@ -8,6 +8,31 @@ version = "0.2.0"
 dependencies = []
 
 [[package]]
+name = "flamenco687/maid"
+version = "3.2.2"
+dependencies = []
+
+[[package]]
+name = "sleitnick/input"
+version = "2.1.1"
+dependencies = [["Signal", "sleitnick/signal@1.5.0"], ["Trove", "sleitnick/trove@0.4.2"]]
+
+[[package]]
+name = "sleitnick/signal"
+version = "1.5.0"
+dependencies = []
+
+[[package]]
+name = "sleitnick/table-util"
+version = "1.2.0"
+dependencies = []
+
+[[package]]
+name = "sleitnick/trove"
+version = "0.4.2"
+dependencies = []
+
+[[package]]
 name = "trerobinson/fusion-plugin-template"
 version = "0.1.0"
-dependencies = [["Fusion", "elttob/fusion@0.2.0"]]
+dependencies = [["Fusion", "elttob/fusion@0.2.0"], ["Input", "sleitnick/input@2.1.1"], ["Maid", "flamenco687/maid@3.2.2"], ["TableUtil", "sleitnick/table-util@1.2.0"]]
