@@ -208,5 +208,28 @@
         ")"
       ],
       "description": ""
+    },
+
+    "Fusion Story": {
+      "prefix": "fstory",
+      "body": [
+        "--// Services",
+        "local Plugin = script.Parent.Parent.Parent.Parent",
+        "",
+        "--// Pages",
+        "local Components = Plugin.Interface.Components",
+        "local Pages = Plugin.Interface.Pages",
+        "",
+        "local ${0:$TM_FILENAME_BASE}Frame = require(Pages.${0:$TM_FILENAME_BASE})()",
+        "",
+        "return function(target: Frame)",
+        "\t${0:$TM_FILENAME_BASE}Frame.Parent = target",
+        "\treturn function()",
+        "\t\t${0:$TM_FILENAME_BASE}Frame:Destroy()",
+        "\tend",
+        "end",
+        ""
+      ],
+      "description": ""
     }
 }
