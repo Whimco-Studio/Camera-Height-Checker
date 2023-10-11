@@ -2,7 +2,7 @@
 --Created Date: Wednesday October 11th 2023 12:03:58 am CEST
 --Author: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 -------
---Last Modified: Wednesday October 11th 2023 12:05:34 am CEST
+--Last Modified: Wednesday October 11th 2023 12:21:03 am CEST
 --Modified By: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 --]]
 --// Services
@@ -83,6 +83,10 @@ return function(props: HomeProps)
 		Size = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
+		Visible = Computed(function()
+			return Active:get()
+		end),
+
 		[Children] = {},
 	})
 
