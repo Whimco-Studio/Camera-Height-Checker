@@ -113,7 +113,8 @@
       "prefix": "fcomponent",
       "body": [
         "--// Services",
-        "local Plugin = script.Parent.Parent.Parent.Parent",
+        "local Plugin = script.Parent.Parent.Parent.Parent
+local Packages = Plugin.Packages",
         "local Players = game:GetService(\"Players\")",
         "local RunService = game:GetService(\"RunService\")",
         "",
@@ -214,7 +215,8 @@
       "prefix": "fstory",
       "body": [
         "--// Services",
-        "local Plugin = script.Parent.Parent.Parent.Parent",
+        "local Plugin = script.Parent.Parent.Parent.Parent
+local Packages = Plugin.Packages",
         "",
         "--// Pages",
         "local Components = Plugin.Interface.Components",
