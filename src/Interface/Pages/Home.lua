@@ -2,11 +2,11 @@
 --Created Date: Wednesday October 11th 2023 12:03:58 am CEST
 --Author: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 -------
---Last Modified: Wednesday October 11th 2023 12:21:03 am CEST
+--Last Modified: Thursday October 19th 2023 1:45:21 pm CEST
 --Modified By: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 --]]
 --// Services
-local Plugin = script.Parent.Parent.Parent
+local Plugin = script.Parent.Parent.Parent.Parent.Plugin
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 

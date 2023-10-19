@@ -2,11 +2,11 @@
 --Created Date: Wednesday October 11th 2023 12:15:04 am CEST
 --Author: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 -------
---Last Modified: Wednesday October 11th 2023 12:15:07 am CEST
+--Last Modified: Thursday October 19th 2023 1:53:30 pm CEST
 --Modified By: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 --]]
 --// Services
-local Plugin = script.Parent.Parent.Parent
+local Plugin = script.Parent.Parent.Parent.Parent.Plugin
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
@@ -50,21 +50,17 @@ local Settings = {
 --------------------------------------------------------------------------------
 local Components = Interface.Components
 local BaseComponents = Components.Base
-local LocalComponents = Components.Root
+-- local LocalComponents = Components.Root
 
 --------------------------------------------------------------------------------
 --// Main Component //--
 --------------------------------------------------------------------------------
 
-type RootProps = {
-	Id: number,
-	Delay: number,
-	Price: number,
-}
+type RootProps = {}
 
 return function(props: RootProps)
 	--// Value States
-	local Active = Value(false)
+	local Active = Value(true)
 
 	--// Signals
 	InterfaceSignals:SubscribeToState("Page", function(NewPage: string)
@@ -79,7 +75,8 @@ return function(props: RootProps)
 	end
 
 	local Root = New("Frame")({
-		BackgroundTransparency = 1,
+		BackgroundTransparency = 0.5,
+		BackgroundColor3 = Color3.new(1, 1, 1),
 		Size = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
