@@ -2,7 +2,7 @@
 --Created Date: Wednesday October 11th 2023 12:15:04 am CEST
 --Author: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 -------
---Last Modified: Thursday October 19th 2023 1:53:30 pm CEST
+--Last Modified: Thursday October 19th 2023 2:10:56 pm CEST
 --Modified By: Trendon Robinson at <The_Pr0fessor (Rbx), @TPr0fessor (Twitter)>
 --]]
 --// Services
@@ -48,9 +48,6 @@ local Settings = {
 --------------------------------------------------------------------------------
 --// Child Components //--
 --------------------------------------------------------------------------------
-local Components = Interface.Components
-local BaseComponents = Components.Base
--- local LocalComponents = Components.Root
 
 --------------------------------------------------------------------------------
 --// Main Component //--
