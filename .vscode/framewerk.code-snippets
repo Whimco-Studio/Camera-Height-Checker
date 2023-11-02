@@ -113,8 +113,8 @@
       "prefix": "fcomponent",
       "body": [
         "--// Services",
-        "local Plugin = script:FindFirstAncestorWhichIsA(\"Plugin\")
-local Packages = Plugin.Packages",
+        "local Plugin = script:FindFirstAncestorWhichIsA(\"Plugin\")",
+        "local Packages = Plugin.Packages",
         "local Players = game:GetService(\"Players\")",
         "local RunService = game:GetService(\"RunService\")",
         "",
@@ -215,8 +215,8 @@ local Packages = Plugin.Packages",
       "prefix": "fstory",
       "body": [
         "--// Services",
-        "local Plugin = script:FindFirstAncestorWhichIsA(\"Plugin\")
-local Packages = Plugin.Packages",
+        "local Plugin = script:FindFirstAncestorWhichIsA(\"Plugin\")",
+        "local Packages = Plugin.Packages",
         "",
         "--// Pages",
         "local Components = Plugin.Interface.Components",
