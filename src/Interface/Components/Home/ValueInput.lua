@@ -1,5 +1,5 @@
 --// Services
-local Plugin = script.Parent.Parent.Parent.Parent.Parent.Plugin
+local Plugin = script.Parent.Parent.Parent.Parent
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
