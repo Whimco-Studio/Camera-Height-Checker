@@ -89,7 +89,9 @@ function Interface.new()
 
 		--// States
 		States = {
-			Page = Value("Home"),
+			Page = Value("Root"),
+			Ratio = Value(4),
+			CameraHeight = Value(4),
 		},
 
 		--// State Subscriptions
@@ -110,7 +112,7 @@ end
 -- @description Initializes the Interface.
 --
 function Interface:Init()
-	self:ListenToStates()
+	-- self:ListenToStates()
 end
 
 ---

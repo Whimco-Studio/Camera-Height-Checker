@@ -51,6 +51,7 @@ Settings.__index = Settings
 function Settings.new()
 	local info = {
 		Connections = {},
+		AutoActive = false,
 	}
 	setmetatable(info, Settings)
 	return info
@@ -72,4 +73,4 @@ function Settings:Destroy()
 	table.freeze(self)
 end
 
-return Settings
+return Settings.new()

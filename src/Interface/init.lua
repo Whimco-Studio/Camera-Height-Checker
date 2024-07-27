@@ -110,7 +110,7 @@ end
 -- @description Initializes the Interface.
 --
 function Interface:Init()
-	self:ListenToStates()
+	-- self:ListenToStates()
 end
 
 ---

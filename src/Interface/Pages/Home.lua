@@ -12,7 +12,7 @@ local RunService = game:GetService("RunService")
 
 --// Interface
 local Interface = Plugin.Interface
-local InterfaceSignals = require(Plugin.Config.Events.Interface)
+local Interface_Handler = require(Plugin.Config.Events.Interface)
 local InterfaceSettings = require(Interface.Settings)
 
 --// Util
@@ -52,42 +52,54 @@ local Components = Interface.Components
 local BaseComponents = Components.Base
 local LocalComponents = Components.Home
 
+local ValueLabel = require(LocalComponents.ValueLabel)
+local ValueInput = require(LocalComponents.ValueInput)
+
 --------------------------------------------------------------------------------
 --// Main Component //--
 --------------------------------------------------------------------------------
 
-type HomeProps = {
-	Id: number,
-	Delay: number,
-	Price: number,
-}
+type HomeProps = {}
 
 return function(props: HomeProps)
 	--// Value States
 	local Active = Value(false)
 
-	--// Signals
-	InterfaceSignals:SubscribeToState("Page", function(NewPage: string)
-		Active:set(NewPage == Settings.Page)
-	end)
-
-	--// Debugging
-	if InterfaceSettings.AutoActive == Settings.Page then
-		task.delay(0, function()
-			Active:set(true)
-		end)
-	end
+	-- Interface_Handler:SubscribeToState(State, function()  end)
 
 	local Home = New("Frame")({
+		Name = "Meters",
+		AnchorPoint = Vector2.new(0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		BackgroundTransparency = 1,
-		Size = UDim2.fromScale(0.5, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.5),
-		Visible = Computed(function()
-			return Active:get()
-		end),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		Position = UDim2.fromScale(0, 0),
+		Size = UDim2.fromScale(1, 1),
 
-		[Children] = {},
+		Visible = true,
+
+		[Children] = {
+			New("UIListLayout")({
+				Name = "UIListLayout",
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			ValueInput({
+				Descriptor = "Studs Per Meter",
+				StartValue = Interface_Handler:GetState("Ratio"):get(),
+				CallBack = function(Text: string)
+					Interface_Handler:GetState("Ratio"):set(tonumber(Text))
+				end,
+			}),
+
+			ValueLabel({
+				Descriptor = "Camera Height",
+				Value = Computed(function()
+					return math.floor(Interface_Handler:GetState("CameraHeight"):get() + 0.5)
+				end),
+			}),
+		},
 	})
 
 	return Home

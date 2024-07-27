@@ -8,31 +8,29 @@
 --// Services
 local RunService = game:GetService("RunService")
 
-local toolbar = plugin:CreateToolbar("Plugin Name")
-local button = toolbar:CreateButton("Button Name", "", "")
+local toolbar = plugin:CreateToolbar("Meter Counter")
+local button = toolbar:CreateButton("Meter Counter", "", "")
 
-local widgetInfo = DockWidgetPluginGuiInfo.new(
-	Enum.InitialDockState.Float, -- Widget will be initialized in floating panel
-	true, -- Widget will be initially enabled
-	true, -- Don't override the previous enabled state
-	700, -- Default width of the floating window
-	500, -- Default height of the floating window
-	200, -- Minimum width of the floating window (optional)
-	100 -- Minimum height of the floating window (optional)
-	-- 700, -- Minimum width of the floating window (optional)
-	-- 500, -- Minimum height of the floating window (optional)
-)
-
-local DockWidget = plugin:CreateDockWidgetPluginGui("DockWidget", widgetInfo)
+local Handler = require(script.Parent.Config.Events.Interface)
 
 if RunService:IsEdit() then
 	local Root = require(script.Parent.Interface.Pages.Root)({})
 
-	Root.Parent = DockWidget
+	local CoreGui = game:GetService("CoreGui")
+	local ScreenGui = CoreGui:FindFirstChild("MetersCounter") :: ScreenGui or Instance.new("ScreenGui")
+
+	for _, v in ScreenGui:GetChildren() do
+		v:Destroy()
+	end
+
+	ScreenGui.Name = "MetersCounter"
+	ScreenGui.Enabled = false
+
+	Root.Parent = ScreenGui
+
+	ScreenGui.Parent = CoreGui
+
+	button.Click:Connect(function()
+		ScreenGui.Enabled = not ScreenGui.Enabled
+	end)
 end
-
-DockWidget.Title = "Plugin Template"
-
-button.Click:Connect(function()
-	DockWidget.Enabled = not DockWidget.Enabled
-end)

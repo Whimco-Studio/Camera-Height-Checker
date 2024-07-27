@@ -49,6 +49,8 @@ local Settings = {
 --// Child Components //--
 --------------------------------------------------------------------------------
 
+local Home = require(script.Parent.Home)
+
 --------------------------------------------------------------------------------
 --// Main Component //--
 --------------------------------------------------------------------------------
@@ -60,24 +62,46 @@ return function(props: RootProps)
 	local Active = Value(true)
 
 	--// Signals
+	RunService:UnbindFromRenderStep("CameraHeightChecker")
+
+	local function CameraHeightChecker()
+		if Active:get() then
+			RunService:BindToRenderStep("CameraHeightChecker", 0, function(delta: number)
+				local Camera = workspace.CurrentCamera
+				local CameraHeight = Camera and Camera.CFrame.Position.Y or 0
+
+				local StudsPerMeter = InterfaceSignals:GetState("Ratio"):get() or 1
+
+				InterfaceSignals:SetState("CameraHeight", CameraHeight / StudsPerMeter)
+			end)
+		else
+			RunService:UnbindFromRenderStep("CameraHeightChecker")
+		end
+	end
+
 	InterfaceSignals:SubscribeToState("Page", function(NewPage: string)
 		Active:set(NewPage == Settings.Page)
 	end)
 
-	--// Debugging
-	if InterfaceSettings.AutoActive == Settings.Page then
-		task.delay(0, function()
-			Active:set(true)
-		end)
-	end
+	CameraHeightChecker()
 
 	local Root = New("Frame")({
-		BackgroundTransparency = 0.5,
-		BackgroundColor3 = Color3.new(1, 1, 1),
-		Size = UDim2.fromScale(0.5, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0.5, 0.5),
-		[Children] = {},
+		Name = "Root",
+		AnchorPoint = Vector2.new(1, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundTransparency = 1,
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BorderSizePixel = 0,
+		Position = UDim2.fromScale(0.975, 0.025),
+		Size = UDim2.fromOffset(303, 200),
+
+		Visible = Computed(function()
+			return Active:get()
+		end),
+
+		[Children] = {
+			Home({}),
+		},
 	})
 
 	return Root
